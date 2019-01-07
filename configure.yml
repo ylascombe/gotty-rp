@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: True
+  roles:
+    - role: gotty
+      tags:
+        - gotty
+    - role: external/nginx 
+      tags:
+        - nginx
+

@@ -1,0 +1,17 @@
+[Unit]
+Description=Gotty web termina
+After=network.target
+
+[Service]
+WorkingDirectory=/home/ubuntu
+SyslogIdentifier=gotty
+User=ubuntu
+Group=ubuntu
+
+ExecStart=/usr/local/bin/gotty -p 9090 -w -c {{ gotty_user }}:{{ gotty_password }} bash
+
+Restart=always
+StartLimitBurst=100
+
+[Install]
+WantedBy=multi-user.target

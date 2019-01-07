@@ -1,0 +1,4 @@
+
+[all]
+poc-box2 ansible_host=<> ansible_user=ubuntu
+

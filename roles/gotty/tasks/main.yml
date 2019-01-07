@@ -1,0 +1,22 @@
+---
+
+- name: Download gotty
+  unarchive:
+    src: https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+    creates: /usr/local/bin/gotty
+
+- name: Install unit file for gotty
+  template:
+    src: gotty.service
+    dest: /etc/systemd/system/gotty.service
+
+- name: Start gotty service
+  systemd:
+    name: gotty
+    state: started
+    daemon_reload: yes
+    enabled: yes
+
+...
