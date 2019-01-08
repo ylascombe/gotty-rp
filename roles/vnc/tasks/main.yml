@@ -1,0 +1,10 @@
+---
+
+- name: Install VNC server
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - xfce4
+    - xfce4-goodies
+    - tightvncserver

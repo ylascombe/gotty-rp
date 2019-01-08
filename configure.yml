@@ -23,6 +23,10 @@
       tags:
         - mysql
         - guacamole-full
+    - role: vnc
+      tags:
+        - vnc
+        - guacamole-all
     - role: external/guacamole
       tags:
         - guacamole

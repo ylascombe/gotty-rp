@@ -1,0 +1,6 @@
+---
+
+- name: Install python-pymysql package since it is a dependency for mysql role
+  package:
+    name: python-pymysql
+    state: present

@@ -1,0 +1,6 @@
+---
+
+- name: Instal default Ubuntu desktop
+  package:
+    name: ubuntu-desktop
+    state: present
