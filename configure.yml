@@ -9,4 +9,22 @@
     - role: external/nginx 
       tags:
         - nginx
+    - role: graphical
+      tags:
+        - graphical
+    - role: external/docker
+      tags:
+        - docker
+    # - role: mysql-prereq
+    #   tags:
+    #     - mysql
+    #     - guacamole
+    - role: external/mysql
+      tags:
+        - mysql
+        - guacamole-full
+    - role: external/guacamole
+      tags:
+        - guacamole
+        - guacamole-full
 
