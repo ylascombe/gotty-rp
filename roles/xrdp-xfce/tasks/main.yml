@@ -1,0 +1,64 @@
+---
+
+- name: Add Centos CR repo (temporary fix for xrdp package).
+  copy:
+    src: cr.repo
+    dest: /etc/yum.repos.d/cr.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install XRDP.
+  yum:
+    name: "{{ item }}"
+    state: present
+    enablerepo: "cr"
+  loop:
+    - epel-release
+    - xrdp
+
+- name: Ensure xrdp is started and enabled at startup.
+  service:
+    name: xrdp
+    state: started
+    enabled: True
+
+
+- name: Configure for xrdp to know that the xfce desktop environment will be used instead of Gnome or Unity.
+  copy:
+    dest: /home/centos/.Xclients
+    content: |
+      xfce4-session
+    mode: 0766
+    owner: centos
+    group: centos
+
+- name: Configure for xrdp to know that the xfce desktop environment will be used instead of Gnome or Unity.
+  copy:
+    dest: .xsession
+    content: |
+      xfce4-session
+    mode: 0766
+
+- name: Install Xfce group.
+  yum:
+    name: "@Xfce"
+    state: present
+    enablerepo: "cr"
+
+- name: Remove env profile sh file that set SSH_ASKPASS env var to avoid git error.
+  # error details : unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+  # file content :
+  #     SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+  #     export SSH_ASKPASS
+  file:
+    path: /etc/profile.d/gnome-ssh-askpass.sh
+    state: absent
+
+# - name: Ensure display settings config file is present.
+#   copy:
+#     dest: /home/centos/.xprofile
+#     src: xrandr.sh
+#     mode: 0744
+#     owner: centos
+#     group: centos

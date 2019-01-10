@@ -1,0 +1,32 @@
+---
+
+- name: Ensure xrdp and devs groups exist
+  group:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - xrdp
+    - devs
+
+- name: Add groups to centos user
+  user:
+    name: centos
+    groups: xrdp,adm,devs
+    append: yes
+    password: plopIsNot
+    state: present
+
+# - name: Add centos user to sudoers
+#   copy:
+#     dest: /etc/sudoers.d/centos
+#     content: |
+#       centos    ALL = NOPASSWD: ALL
+#       Defaults:centos    !requiretty
+
+# HACK to force ansible to reopen SSH connection in order to take account of membership of remote user to docker group
+# https://github.com/ansible/ansible/issues/20604
+- name: Kill SSH to force ansible to reload remote user group
+  shell: sleep 1; pkill -u centos sshd
+  async: 3
+  poll: 2
+  changed_when: False

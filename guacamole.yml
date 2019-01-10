@@ -1,0 +1,46 @@
+
+- hosts: guacamole
+  become: True
+  roles:
+    - role: external/nginx
+      tags:
+        - nginx
+    - role: external/docker
+      tags:
+        - docker
+          #    - role: external/mysql
+          #      tags:
+          #        - mysql
+          #        - guacamole-full
+          #    - role: external/guacamole
+          #      tags:
+          #       - guacamole
+          #       - guacamole-full
+    - role: guacamole-docker-compose
+      tags:
+        - compose
+
+# - hosts: gotty
+#   become: True
+#   roles:
+#     - role: gotty
+#       tags:
+#         - gotty
+
+- hosts: vnc
+  become: True
+  roles:
+    - role: graphical
+      tags:
+        - graphical
+    - role: vnc
+      tags:
+        - vnc
+        - guacamole-all
+
+
+- hosts: rdp
+  become: True
+  roles:
+    - role: users
+    - role: xrdp-xfce

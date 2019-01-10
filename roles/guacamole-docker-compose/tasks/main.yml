@@ -1,0 +1,13 @@
+---
+
+- name: Git clone https://github.com/boschkundendienst/guacamole-docker-compose.git
+  git:
+    repo: https://github.com/boschkundendienst/guacamole-docker-compose.git
+    dest: /root/guacamole-docker-compose
+
+- name: Download the latest version of docker compose
+  get_url: 
+    url: https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+  

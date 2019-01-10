@@ -1,11 +1,14 @@
 ---
 
-- hosts: all
+- hosts: gotty
   become: True
   roles:
     - role: gotty
       tags:
         - gotty
+- hosts: all
+  become: True
+  roles:
     - role: external/nginx 
       tags:
         - nginx
@@ -27,6 +30,7 @@
       tags:
         - vnc
         - guacamole-all
+# - hosts: guacamole
     - role: external/guacamole
       tags:
         - guacamole
